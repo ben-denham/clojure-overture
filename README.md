@@ -37,7 +37,14 @@ projects directory with `cd projects`.
 
 Create a new project with `lein new app my-new-project`. You can also
 replace `app` with any other leiningen template, such as `reagent`,
-`reagent-frontend`, or `luminus`.
+`reagent-frontend`, or `luminus`. You may need to run `make chown` to
+allow the files to be edited from outside the Docker container.
 
 Move into any project directory and run `lein run` to execute the
 project.
+
+## Important Notes
+
+As the user in the Docker container is root, you will need to run
+`make chown` on your host to allow editing created files from outside
+the container.

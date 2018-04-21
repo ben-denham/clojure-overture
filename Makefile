@@ -1,14 +1,19 @@
 IMAGE_NAME=clojure-overture-image
 CONTAINER_NAME=clojure-overture
 
-build:
+chown:
+	sudo chown -R ${USER}:${USER} .
+build: chown
 	docker build -t ${IMAGE_NAME} .
 start: build
 	if [ -n "`docker ps -a | grep ${CONTAINER_NAME}`" ]; \
 	then docker start ${CONTAINER_NAME}; \
 	else docker run --name ${CONTAINER_NAME} \
-		-d -p 8888:8888 \
-		-v `pwd`:/src \
+		-d -v `pwd`:/src \
+		-p 8888:8888 \
+		-p 3000:3000 \
+		-p 3449:3449 \
+		-p 7002:7002 \
 	${IMAGE_NAME}; \
 	fi
 	@echo "============================================="
